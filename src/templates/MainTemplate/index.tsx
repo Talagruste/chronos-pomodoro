@@ -3,9 +3,6 @@ import { Footer } from '../../components/Footer';
 import { Logo } from '../../components/Logo';
 import { Menu } from '../../components/Menu';
 
-import './styles/global.css';
-import './styles/theme.css';
-
 type MainTemplateProps = {
     children: React.ReactNode;
 }
