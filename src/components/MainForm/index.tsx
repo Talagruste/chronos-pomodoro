@@ -4,23 +4,27 @@ import { DefaultButton } from "../DefaultButton";
 import { PlayCircleIcon } from "lucide-react";
 
 export function MainForm() {
-    return (
-        <form className='form' action=''>
-          <div className="formRow">
-            <DefaultInput id='meuInput' type='text' labelText='Task' placeholder='Digite a tarefa'/>
-          </div>
+  function handeCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
+    
+  }
 
-          <div className="formRow">
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
+  return (
+      <form onSubmit={handeCreateNewTask} className='form' action=''>
+        <div className="formRow">
+          <DefaultInput id='meuInput' type='text' labelText='Task' placeholder='Digite a tarefa'/>
+        </div>
 
-          <div className="formRow">
-            <Cycles />
-          </div>
+        <div className="formRow">
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
 
-          <div className="formRow">
-            <DefaultButton icon={<PlayCircleIcon />} />
-          </div>
-        </form>
-    )
+        <div className="formRow">
+          <Cycles />
+        </div>
+
+        <div className="formRow">
+          <DefaultButton icon={<PlayCircleIcon />} />
+        </div>
+      </form>
+  )
 }
