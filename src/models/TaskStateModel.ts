@@ -8,7 +8,7 @@ export type TaskStateModel = {
     currentCycle: number;
     config: {
         workTime: number;
-        shortbreakTime: number;
+        shortBreakTime: number;
         longBreakTime: number;
     };
 };
