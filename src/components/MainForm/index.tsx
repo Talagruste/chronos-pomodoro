@@ -7,10 +7,12 @@ import { TaskModel } from "../../models/TaskModels";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
-import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
+import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
+import { Tips } from "../Tips";
+import { showMessage } from "../../adapters/showMessage";
 
 export function MainForm() {
-  const { state, setState } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
   const nextCycle = getNextCycle(state.currentCycle);
@@ -18,57 +20,36 @@ export function MainForm() {
 
   function handeCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert('Digite o nome da tarefa.');
+      showMessage.warning('Digite o nome da tarefa.');
       return;
     }
 
     const newTask: TaskModel = {
       id: Date.now().toString(),
       name: taskName,
-      date: Date.now(),
+      startDate: Date.now(),
       completeDate: null,
       interruptDate: null,
       duration: state.config[nextCycleType],
       type: nextCycleType,
     };
 
-    const secondsRemaining = newTask.duration * 60;
-
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: {...prevState.config},
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining: secondsRemaining, //conferir
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask],
-      };
-    });
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+    showMessage.success('Tarefa iniciada');
+  
   }
 
   function handleInterruptTask() {
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: {...prevState.config},
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemaining: '00:00',
-        tasks: prevState.tasks.map(task => {
-          if(prevState.activeTask && prevState.activeTask.id === task.id){
-            return {...task, interruptDate: Date.now()};
-          }
-          return task;
-        })
-      };
-    });
+    showMessage.dismiss();
+    showMessage.error('Tarefa interrompida');
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
   return (
@@ -85,7 +66,7 @@ export function MainForm() {
         </div>
 
         <div className="formRow">
-          <p>Próximo intervalo é de 25min.</p>
+          <Tips />
         </div>
 
         {state.currentCycle > 0 && (
