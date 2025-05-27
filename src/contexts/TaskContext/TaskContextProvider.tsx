@@ -22,7 +22,7 @@ export function TaskContextProvider({children}: TaskContextProviderProps) {
         return {
             ...parsedStorageState,
             activeTask: null,
-            secondsRemaining: '0',
+            secondsRemaining: 0,
             formattedSecondsRemaining: '00:00'
         };
     });
