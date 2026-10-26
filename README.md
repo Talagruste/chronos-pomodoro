@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# ⏱️ Chronos Pomodoro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cronômetro para organizar qualquer tarefa com o **método Pomodoro**: períodos de foco intercalados com pausas curtas e longas, com tempos configuráveis e histórico de uso.
 
-Currently, two official plugins are available:
+🔗 **Acesse:** [chronos-pomodoro-gamma.vercel.app](https://chronos-pomodoro-gamma.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Como funciona
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Por padrão, o método usa:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+| Etapa | Duração | Indicador |
+| --- | --- | --- |
+| Foco | 25 min | 🟡 amarelo |
+| Descanso curto | 5 min | 🟢 verde |
+| Descanso longo | 15 min | 🔵 azul |
+
+As etapas seguem um ciclo de 8 tempos, em 2 blocos:
+
+```
+Foco → Descanso curto → Foco → Descanso curto
+Foco → Descanso curto → Foco → Descanso longo
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Cada etapa começa ao clicar no botão **play**. Depois do descanso longo, o ciclo recomeça.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Funcionalidades
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+- **Tempos configuráveis:** pelo botão de configurações (⚙️), é possível definir a duração de foco, descanso curto e descanso longo.
+- **Indicação visual do ciclo:** um círculo colorido mostra o tipo de cada etapa (foco, descanso curto ou longo).
+- **Histórico de uso:** todas as sessões ficam salvas no próprio navegador e podem ser consultadas pelo botão de histórico (🕒), sem necessidade de cadastro.
+
+## Tecnologias
+
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- ESLint
+- Deploy na [Vercel](https://vercel.com/)
+
+## Como rodar localmente
+
+```bash
+git clone https://github.com/Talagruste/chronos-pomodoro.git
+cd chronos-pomodoro
+npm install
+npm run dev
 ```
+
+---
+
+Desenvolvido por **Arthur Barros** · [GitHub](https://github.com/Talagruste)
